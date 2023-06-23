@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Button extends StatefulWidget {
   final String label;
-  final void Function()? handleClick;
+  final void Function(String option)? handleClick;
   final Color color;
 
   const Button({
@@ -20,24 +20,29 @@ class _ButtonState extends State<Button> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 20.0),
-      child: OutlinedButton.icon(
-        style: OutlinedButton.styleFrom(
-            backgroundColor: widget.color,
-            padding:
-                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 15.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            )),
-        onPressed: widget.handleClick,
-        label: Text(
-          widget.label,
-          style: const TextStyle(fontSize: 20, color: Colors.white),
+      width: 350,
+      margin: const EdgeInsets.all(10.0),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: widget.color,
+          padding: const EdgeInsets.all(18),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
         ),
-        icon: const Icon(
-          Icons.arrow_right_alt_sharp,
-          color: Colors.white,
-          size: 32,
+        onPressed: () {
+          if (widget.handleClick != null) {
+            widget.handleClick!(widget.label);
+          }
+        },
+        child: Text(
+          widget.label,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+              fontSize: 16,
+              textBaseline: TextBaseline.alphabetic,
+              color: Color.fromARGB(255, 39, 141, 243),
+              fontWeight: FontWeight.bold,
+              fontFamily: AutofillHints.addressState),
         ),
       ),
     );

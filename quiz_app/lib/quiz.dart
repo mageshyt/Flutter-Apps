@@ -10,16 +10,11 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  Widget? activeScreen;
-  @override
-  void initState() {
-    activeScreen = StartScreen(switchScreen);
-    super.initState();
-  }
+  var activeScreen = 'start';
 
-  void switchScreen() {
+  void startQuiz() {
     setState(() {
-      activeScreen = const QuestionScreen();
+      activeScreen = 'question';
     });
   }
 
@@ -28,20 +23,23 @@ class _QuizState extends State<Quiz> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 0, 0, 0),
-              Color.fromARGB(198, 0, 0, 0),
-            ],
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            tileMode: TileMode.decal,
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 0, 0, 0),
+                Color.fromARGB(198, 0, 0, 0),
+              ],
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              tileMode: TileMode.decal,
+            ),
           ),
+          child: activeScreen == 'start'
+              ? StartScreen(startQuiz)
+              : const QuestionScreen(),
         ),
-        child: activeScreen,
-      )),
+      ),
     );
   }
 }
