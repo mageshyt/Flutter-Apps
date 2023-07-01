@@ -20,12 +20,12 @@ class _ButtonState extends State<Button> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
+      width: double.infinity,
       margin: const EdgeInsets.all(10.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: widget.color,
-          padding: const EdgeInsets.all(18),
+          padding: const EdgeInsets.all(12),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
         ),

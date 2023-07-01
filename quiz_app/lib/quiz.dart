@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/question_screen.dart';
+import 'package:quiz_app/result_screen.dart';
 import 'package:quiz_app/start_screen.dart';
 
 class Quiz extends StatefulWidget {
@@ -12,10 +13,48 @@ class Quiz extends StatefulWidget {
 class _QuizState extends State<Quiz> {
   var activeScreen = 'start';
 
+  var score = 0;
   void startQuiz() {
     setState(() {
       activeScreen = 'question';
     });
+  }
+
+  void showResult() {
+    setState(() {
+      activeScreen = 'result';
+    });
+  }
+
+  void incrementScore() {
+    setState(() {
+      score++;
+    });
+  }
+
+  void resetQuiz() {
+    setState(() {
+      activeScreen = 'start';
+      score = 0;
+    });
+  }
+
+  Map<int, dynamic> resultSummary = {};
+
+  Widget getCurrentScreen() {
+    if (activeScreen == 'start') {
+      return StartScreen(startQuiz);
+    } else if (activeScreen == 'question') {
+      return QuestionScreen(showResult, incrementScore, resultSummary);
+    } else if (activeScreen == 'result') {
+      return ResultScreen(
+        score: score,
+        resetQuiz: resetQuiz,
+        resultSummary: resultSummary,
+      );
+    } else {
+      return Container();
+    }
   }
 
   @override
@@ -28,16 +67,14 @@ class _QuizState extends State<Quiz> {
             gradient: LinearGradient(
               colors: [
                 Color.fromARGB(255, 0, 0, 0),
-                Color.fromARGB(198, 0, 0, 0),
+                Color.fromARGB(219, 0, 0, 0),
               ],
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               tileMode: TileMode.decal,
             ),
           ),
-          child: activeScreen == 'start'
-              ? StartScreen(startQuiz)
-              : const QuestionScreen(),
+          child: getCurrentScreen(),
         ),
       ),
     );

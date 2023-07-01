@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/components/Button.dart';
 
 // ignore: must_be_immutable
 class StartScreen extends StatelessWidget {
@@ -18,7 +17,7 @@ class StartScreen extends StatelessWidget {
             image: AssetImage('assets/images/quiz-logo.png'),
             width: 200,
             height: 200,
-            color: Color.fromARGB(109, 255, 255, 255),
+            color: Color.fromARGB(158, 255, 255, 255),
           ),
           const SizedBox(
             height: 20,
@@ -43,9 +42,9 @@ class StartScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(30.0),
                   )),
               onPressed: startQuiz,
-              label: Text(
+              label: const Text(
                 "start Quiz",
-                style: const TextStyle(fontSize: 20, color: Colors.white),
+                style: TextStyle(fontSize: 20, color: Colors.white),
               ),
               icon: const Icon(
                 Icons.arrow_right_alt_sharp,
