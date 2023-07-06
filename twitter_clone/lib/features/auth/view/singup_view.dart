@@ -1,23 +1,19 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:twitter_clone/common/common.dart';
 import 'package:twitter_clone/constants/constants.dart';
-import 'package:twitter_clone/features/auth/view/singup_view.dart';
-
+import 'package:twitter_clone/features/auth/view/login_view.dart';
 import 'package:twitter_clone/features/auth/widgets/auth_field.dart';
 import 'package:twitter_clone/theme/pallet.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
-
-  static route() => MaterialPageRoute(builder: (context) => const LoginView());
+class SingUpView extends StatefulWidget {
+  const SingUpView({Key? key}) : super(key: key);
+  static route() => MaterialPageRoute(builder: (context) => const SingUpView());
   @override
-  _LoginViewState createState() => _LoginViewState();
+  State<SingUpView> createState() => _SingUpViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _SingUpViewState extends State<SingUpView> {
   final appbar = UIConstants.appBar();
 
   final emailController = TextEditingController();
@@ -66,17 +62,17 @@ class _LoginViewState extends State<LoginView> {
 
               RichText(
                 text: TextSpan(
-                  text: "Don't have an account ? ",
+                  text: "Already have an account ? ",
                   style: const TextStyle(fontSize: 16),
                   children: [
                     TextSpan(
-                      text: " Sing Up",
+                      text: " Login",
                       style: const TextStyle(
                           color: Pallete.blueColor,
                           fontWeight: FontWeight.w600),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.push(context, SingUpView.route());
+                          Navigator.push(context, LoginView.route());
                         },
                     ),
                   ],
