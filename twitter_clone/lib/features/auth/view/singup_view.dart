@@ -1,19 +1,21 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:twitter_clone/common/common.dart';
 import 'package:twitter_clone/constants/constants.dart';
+import 'package:twitter_clone/features/auth/controller/auth_controller.dart';
 import 'package:twitter_clone/features/auth/view/login_view.dart';
 import 'package:twitter_clone/features/auth/widgets/auth_field.dart';
 import 'package:twitter_clone/theme/pallet.dart';
 
-class SingUpView extends StatefulWidget {
+class SingUpView extends ConsumerStatefulWidget {
   const SingUpView({Key? key}) : super(key: key);
   static route() => MaterialPageRoute(builder: (context) => const SingUpView());
   @override
-  State<SingUpView> createState() => _SingUpViewState();
+  ConsumerState<SingUpView> createState() => _SingUpViewState();
 }
 
-class _SingUpViewState extends State<SingUpView> {
+class _SingUpViewState extends ConsumerState<SingUpView> {
   final appbar = UIConstants.appBar();
 
   final emailController = TextEditingController();
@@ -26,6 +28,13 @@ class _SingUpViewState extends State<SingUpView> {
     passwordController.dispose();
   }
 
+  void onSinUp() {
+    ref.read(AuthControllerProvider.notifier).SignUp(
+        email: emailController.text,
+        password: passwordController.text,
+        context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +44,9 @@ class _SingUpViewState extends State<SingUpView> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(children: [
+              // Name
+              AuthField(controller: emailController, hint_text: "Name"),
+              const SizedBox(height: 20),
               // Email
               AuthField(controller: emailController, hint_text: "Email"),
               const SizedBox(height: 20),
@@ -49,9 +61,9 @@ class _SingUpViewState extends State<SingUpView> {
               Align(
                 alignment: Alignment.topRight,
                 child: RoundedButton(
-                  onTap: () {},
+                  onTap: onSinUp,
                   size: "sm",
-                  label: "Submit",
+                  label: "Sign up",
                   bgColor: Pallete.whiteColor,
                   textColor: Pallete.backgroundColor,
                 ),

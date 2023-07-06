@@ -2,22 +2,25 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:twitter_clone/common/common.dart';
 import 'package:twitter_clone/constants/constants.dart';
+import 'package:twitter_clone/features/auth/controller/auth_controller.dart';
 import 'package:twitter_clone/features/auth/view/singup_view.dart';
 
 import 'package:twitter_clone/features/auth/widgets/auth_field.dart';
 import 'package:twitter_clone/theme/pallet.dart';
 
-class LoginView extends StatefulWidget {
+class LoginView extends ConsumerStatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 
   static route() => MaterialPageRoute(builder: (context) => const LoginView());
   @override
-  _LoginViewState createState() => _LoginViewState();
+  ConsumerState<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginViewState extends ConsumerState<LoginView> {
   final appbar = UIConstants.appBar();
 
   final emailController = TextEditingController();
@@ -30,6 +33,13 @@ class _LoginViewState extends State<LoginView> {
     passwordController.dispose();
   }
 
+  void login() {
+    ref.read(AuthControllerProvider.notifier).Login(
+        email: emailController.text,
+        password: passwordController.text,
+        context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +49,12 @@ class _LoginViewState extends State<LoginView> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(children: [
+              SvgPicture.asset(
+                AssetsConstants.loginPageImage,
+                height: 200,
+                width: 200,
+              ),
+              const SizedBox(height: 40),
               // Email
               AuthField(controller: emailController, hint_text: "Email"),
               const SizedBox(height: 20),
@@ -53,7 +69,7 @@ class _LoginViewState extends State<LoginView> {
               Align(
                 alignment: Alignment.topRight,
                 child: RoundedButton(
-                  onTap: () {},
+                  onTap: login,
                   size: "sm",
                   label: "Submit",
                   bgColor: Pallete.whiteColor,
