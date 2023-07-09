@@ -13,19 +13,40 @@ final authAPIProvider =
 
 abstract class IAuthAPI {
   FutureEither<model.User> signUp(
+      {required String email, required String password, required String name});
+
+  FutureEither<model.Session> login(
       {required String email, required String password});
+
+  Future<model.User?> getAccount();
 }
 
 class AuthAPI implements IAuthAPI {
   final Account _account;
 
   AuthAPI({required Account account}) : _account = account;
+
+  // get user account
+
+  @override
+  Future<model.User?> getAccount() async {
+    try {
+      return await _account.get();
+    } on AppwriteException catch (e) {
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
   @override
   FutureEither<model.User> signUp(
-      {required String email, required String password}) async {
+      {required String email,
+      required String password,
+      required String name}) async {
     try {
       final account = await _account.create(
-          userId: ID.unique(), email: email, password: password);
+          userId: ID.unique(), name: name, email: email, password: password);
       return right(account);
     } on AppwriteException catch (e, stackTrace) {
       return left(Failure(
@@ -37,15 +58,14 @@ class AuthAPI implements IAuthAPI {
   }
 
   // login user
-
-  FutureEither<String> login(
+  @override
+  FutureEither<model.Session> login(
       {required String email, required String password}) async {
     try {
-      final res =
+      final session =
           await _account.createEmailSession(email: email, password: password);
-
-      print(res);
-      return right(res.userId);
+      // print(session);
+      return right(session);
     } on AppwriteException catch (e, stackTrace) {
       return left(Failure(
           message: e.message ?? 'something went wrong',
