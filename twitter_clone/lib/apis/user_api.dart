@@ -12,6 +12,8 @@ final userAPIProvider =
 abstract class IUserAPI {
   // create account
   FutureEitherVoid saveUserData(UserModel userModel);
+
+  // get account
 }
 
 class UserAPI implements IUserAPI {
@@ -25,7 +27,6 @@ class UserAPI implements IUserAPI {
           collectionId: AppwriteConstants.usersCollection,
           documentId: userModel.uid,
           data: userModel.toMap());
-      print("User data saved");
       return right(null);
     } on AppwriteException catch (e, st) {
       return left(Failure(
