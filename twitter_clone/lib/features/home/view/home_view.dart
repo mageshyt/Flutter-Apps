@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:twitter_clone/common/bottom_bar.dart';
 import 'package:twitter_clone/constants/constants.dart';
+import 'package:twitter_clone/theme/pallet.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -29,15 +30,19 @@ class _HomeViewState extends State<HomeView> {
         body: IndexedStack(
           index: _bottomNavIndex,
           children: [
-            Container(color: Colors.black),
-            Container(color: Colors.green),
-            Container(color: Colors.blue),
-            Container(color: Colors.yellow),
+            UIConstants.Pages[0],
+            UIConstants.Pages[1],
+            UIConstants.Pages[2],
           ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
-          child: const Icon(Icons.add),
+          backgroundColor: Pallete.blueColor,
+          child: const Icon(
+            Icons.add,
+            color: Pallete.whiteColor,
+            size: 30,
+          ),
         ),
         bottomNavigationBar:
             BottomBar(bottomNavIndex: _bottomNavIndex, onTap: setActiveTab));
