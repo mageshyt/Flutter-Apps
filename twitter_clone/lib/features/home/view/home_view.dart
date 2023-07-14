@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:twitter_clone/common/bottom_bar.dart';
 import 'package:twitter_clone/constants/constants.dart';
+import 'package:twitter_clone/features/tweet/views/create_tweet.dart';
 import 'package:twitter_clone/theme/pallet.dart';
 
 class HomeView extends StatefulWidget {
@@ -23,6 +24,10 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
+  onCreateTweet() {
+    Navigator.push(context, CreateTweet.route());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +41,7 @@ class _HomeViewState extends State<HomeView> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed:onCreateTweet,
           backgroundColor: Pallete.blueColor,
           child: const Icon(
             Icons.add,

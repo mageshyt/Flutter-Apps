@@ -1,4 +1,5 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart' as model;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:twitter_clone/constants/appwrite_constants.dart';
@@ -12,8 +13,8 @@ final userAPIProvider =
 abstract class IUserAPI {
   // create account
   FutureEitherVoid saveUserData(UserModel userModel);
-
   // get account
+  Future<model.Document> getUserDetails(String uid);
 }
 
 class UserAPI implements IUserAPI {
@@ -34,5 +35,15 @@ class UserAPI implements IUserAPI {
     } catch (e, st) {
       return left(Failure(message: e.toString(), stackTrace: st));
     }
+  }
+
+  @override
+  Future<model.Document> getUserDetails(String uid) {
+    var res = _db.getDocument(
+        databaseId: AppwriteConstants.databaseId,
+        collectionId: AppwriteConstants.usersCollection,
+        documentId: uid);
+
+    return res;
   }
 }

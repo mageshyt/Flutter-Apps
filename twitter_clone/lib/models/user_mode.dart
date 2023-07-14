@@ -64,15 +64,15 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      uid: map['uid'] ?? '',
-      name: map['name'] ?? '',
       email: map['email'] ?? '',
-      followers: map['followers'],
-      following: map['following'],
+      name: map['name'] ?? '',
+      followers: List<String>.from(map['followers']),
+      following: List<String>.from(map['following']),
       avatar: map['avatar'] ?? '',
       bannerPic: map['bannerPic'] ?? '',
+      uid: map['\$id'] ?? '',
       bio: map['bio'] ?? '',
-      isVerified: map['isVerified'] ?? false,
+      isVerified: map['isTwitterBlue'] ?? false,
     );
   }
 

@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 class RoundedButton extends StatelessWidget {
   final VoidCallback onTap;
-  final String size;
+  final String? size;
   final String label;
-  final Color bgColor;
-  final Color textColor;
+  final Color? bgColor;
+  final Color? textColor;
 
   const RoundedButton(
       {Key? key,
       required this.onTap,
-      required this.size,
+      this.size,
       required this.label,
-      required this.bgColor,
-      required this.textColor})
+      this.bgColor,
+      this.textColor})
       : super(key: key);
 
   @override
@@ -23,10 +23,11 @@ class RoundedButton extends StatelessWidget {
       child: Chip(
         label: Text(
           label,
-          style: TextStyle(color: textColor, fontSize: 16),
+          style: TextStyle(
+              color: textColor, fontSize: 16, fontWeight: FontWeight.w700),
         ),
-        backgroundColor: this.bgColor,
-        labelPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+        backgroundColor: bgColor,
+        labelPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
       ),
     );
   }
