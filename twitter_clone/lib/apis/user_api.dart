@@ -5,7 +5,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:twitter_clone/constants/appwrite_constants.dart';
 import 'package:twitter_clone/core/core.dart';
 import 'package:twitter_clone/core/provider.dart';
-import 'package:twitter_clone/models/user_mode.dart';
+import 'package:twitter_clone/models/user_model.dart';
 
 final userAPIProvider =
     Provider((ref) => UserAPI(db: ref.watch(databaseProvider)));
