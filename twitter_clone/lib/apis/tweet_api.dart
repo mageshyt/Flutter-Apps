@@ -7,15 +7,16 @@ import 'package:twitter_clone/core/core.dart';
 import 'package:twitter_clone/core/provider.dart';
 import 'package:twitter_clone/models/tweet_model.dart';
 
-final tweetApiProvider = Provider((ref) => TweetAPI(db: ref.watch(databaseProvider)));
-
+final tweetApiProvider =
+    Provider((ref) => TweetAPI(db: ref.watch(databaseProvider)));
 
 abstract class ITweetAPI {
   FutureEither<Document> shareTweet(Tweet tweet);
+
+  Future<List<Document>> getTweets( );
 }
 
 class TweetAPI implements ITweetAPI {
-  
   final Databases _db;
 
   TweetAPI({required Databases db}) : _db = db;
@@ -23,10 +24,10 @@ class TweetAPI implements ITweetAPI {
   FutureEither<Document> shareTweet(Tweet tweet) async {
     try {
       // add tweet to database
-      final doc=await _db.createDocument(
+      final doc = await _db.createDocument(
           databaseId: AppwriteConstants.databaseId,
           collectionId: AppwriteConstants.tweetsCollection,
-          documentId:  ID.unique(),
+          documentId: ID.unique(),
           data: tweet.toMap());
 
       // // add tweet to user's tweets
@@ -41,6 +42,20 @@ class TweetAPI implements ITweetAPI {
       return right(doc);
     } catch (e, stackTrace) {
       return left(Failure(message: e.toString(), stackTrace: stackTrace));
+    }
+  }
+
+  @override
+  Future<List<Document>> getTweets( ) async {
+    try {
+      final response = await _db.listDocuments(
+        databaseId: AppwriteConstants.databaseId,
+        collectionId: AppwriteConstants.tweetsCollection,
+      );
+
+      return response.documents;
+    } catch (e, stackTrace) {
+      throw Failure(message: e.toString(), stackTrace: stackTrace);
     }
   }
 }
