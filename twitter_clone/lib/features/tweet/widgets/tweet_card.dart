@@ -9,6 +9,7 @@ import 'package:twitter_clone/features/tweet/widgets/tweet_action.dart';
 import 'package:twitter_clone/features/tweet/widgets/tweet_header.dart';
 import 'package:twitter_clone/models/tweet_model.dart';
 import 'package:any_link_preview/any_link_preview.dart';
+import 'package:twitter_clone/theme/pallet.dart';
 
 class TweetCard extends ConsumerWidget {
   final Tweet tweet;
@@ -46,23 +47,23 @@ class TweetCard extends ConsumerWidget {
                         CarouselImage(images: tweet.imageLinks),
 
                       // * Tweet links
-                      if (tweet.link.isNotEmpty) ...[
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        AnyLinkPreview(
-                          link: 'https://${tweet.link}',
-                        ),
-                      ],
-
-                      TweetAction(tweet: tweet)
+                      // if (tweet.link.isNotEmpty) ...[
+                      //   const SizedBox(
+                      //     height: 4,
+                      //   ),
+                      //   AnyLinkPreview(link: 'https://${tweet.link}')
+                      // ],
 
                       // * Tweet Action
+                      TweetAction(tweet: tweet)
                     ],
                   ),
                 ),
               ],
             ),
+            const Divider(
+              color: Pallete.greyColor,
+            )
           ]);
         },
         error: (error, stackTrack) => ErrorText(errorMessege: error.toString()),

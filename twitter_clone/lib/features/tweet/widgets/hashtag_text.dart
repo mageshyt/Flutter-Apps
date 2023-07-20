@@ -21,7 +21,8 @@ class HashtagText extends StatelessWidget {
               ..onTap = () {
                 print('Hashtag $element');
               }));
-      } else if (element.startsWith('wwww.') || element.startsWith('http://')) {
+      } else if (element.startsWith('wwww.') ||
+          element.startsWith('https://')) {
         spans.add(TextSpan(
             text: '$element ',
             style: const TextStyle(color: Pallete.blueColor),

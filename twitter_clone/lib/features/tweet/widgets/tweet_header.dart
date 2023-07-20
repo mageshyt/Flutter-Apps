@@ -15,7 +15,7 @@ class TweetHeader extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(left: 5, right: 5),
           child: Text(
-            name,
+            name.split(' ')[0],
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         ),

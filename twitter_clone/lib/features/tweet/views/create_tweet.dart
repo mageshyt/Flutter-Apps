@@ -36,8 +36,12 @@ class _CreateTweetState extends ConsumerState<CreateTweet> {
   }
 
   void shareTweet() {
+    // tweet text
     ref.read(TweetControllerProvider.notifier).shareTweet(
         images: images, tweet_text: tweetController.text, context: context);
+
+    // close the screen
+    onClose();
   }
 
   final tweetController = TextEditingController();

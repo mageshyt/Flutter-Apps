@@ -10,7 +10,7 @@ packages:
     source: hosted
     version: "1.2.0"
   any_link_preview:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: any_link_preview
       sha256: be2adb74944140428c46c3688c1b843c884ead6908e13e8cae359fa31f37cf07
@@ -697,10 +697,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher
-      sha256: eb1e00ab44303d50dd487aab67ebc575456c146c6af44422f9c13889984c00f3
+      sha256: "781bd58a1eb16069412365c98597726cd8810ae27435f04b3b4d3a470bacd61e"
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.11"
+    version: "6.1.12"
   url_launcher_android:
     dependency: transitive
     description:
@@ -839,4 +839,4 @@ packages:
     version: "6.3.0"
 sdks:
   dart: ">=3.0.3 <4.0.0"
-  flutter: ">=3.7.0-0"
+  flutter: ">=3.10.0"
