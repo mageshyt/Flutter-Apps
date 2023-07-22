@@ -49,6 +49,7 @@ class TweetController extends StateNotifier<bool> {
     required String tweet_text,
     required BuildContext context,
   }) {
+    state = true;
     if (tweet_text.isEmpty) {
       showSnackBar(context, "Please Enter the text");
       return;
@@ -60,6 +61,7 @@ class TweetController extends StateNotifier<bool> {
     } else {
       _shareTweet(context: context, tweet_text: tweet_text);
     }
+    state = false;
   }
 
   void _shareImageTweet({
@@ -67,7 +69,6 @@ class TweetController extends StateNotifier<bool> {
     required String tweet_text,
     required BuildContext context,
   }) async {
-    state = true;
     final hashtags = _getHashTagsFromText(tweet_text);
     String link = _getLinkFromText(tweet_text);
     final user = _ref.read(currentUserDetailsProvider).value!;
@@ -96,15 +97,12 @@ class TweetController extends StateNotifier<bool> {
     }, (r) {
       showSnackBar(context, "Tweet Shared Successfully");
     });
-
-    state = false;
   }
 
   void _shareTweet({
     required String tweet_text,
     required BuildContext context,
   }) async {
-    state = true;
     final hashtags = _getHashTagsFromText(tweet_text);
     String link = _getLinkFromText(tweet_text);
     final user = _ref.read(currentUserDetailsProvider).value!;
@@ -128,8 +126,6 @@ class TweetController extends StateNotifier<bool> {
     res.fold((l) {
       showSnackBar(context, l.message);
     }, (r) => showSnackBar(context, "Tweet Shared Successfully"));
-
-    state = false;
   }
 
   String _getLinkFromText(String text) {

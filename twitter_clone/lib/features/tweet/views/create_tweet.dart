@@ -41,7 +41,7 @@ class _CreateTweetState extends ConsumerState<CreateTweet> {
         images: images, tweet_text: tweetController.text, context: context);
 
     // close the screen
-    onClose();
+    Navigator.pop(context);
   }
 
   final tweetController = TextEditingController();
