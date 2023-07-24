@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:appwrite/models.dart' as model;
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -59,7 +60,8 @@ class AuthController extends StateNotifier<bool> {
         await _account.signUp(name: name, email: email, password: password);
     state = false;
     return res.fold(
-      (l) => showSnackBar(context, l.message),
+      (l) => showSnackBar(
+          context, l.message, "Sign up error", ContentType.failure),
       (r) async {
         // save user data
         UserModel user = UserModel(
@@ -76,9 +78,11 @@ class AuthController extends StateNotifier<bool> {
 
         final res2 = await _userAPI.saveUserData(user);
         res2.fold(
-          (l) => showSnackBar(context, l.message),
+          (l) => showSnackBar(
+              context, l.message, "Sign up error", ContentType.failure),
           (r) => {
-            showSnackBar(context, "Account created successfully "),
+            showSnackBar(context, "Account created successfully ", "Success",
+                ContentType.success),
             Navigator.push(context, LoginView.route())
           },
         );
@@ -95,9 +99,11 @@ class AuthController extends StateNotifier<bool> {
     final res = await _account.login(email: email, password: password);
     state = false;
     return res.fold(
-        (l) => showSnackBar(context, l.message),
+        (l) => showSnackBar(
+            context, l.message, "Login error", ContentType.failure),
         (r) => {
-              showSnackBar(context, "Logined successfully "),
+              showSnackBar(context, "Logined successfully ", "Success",
+                  ContentType.success),
               Navigator.push(context, HomeView.route())
             });
   }
