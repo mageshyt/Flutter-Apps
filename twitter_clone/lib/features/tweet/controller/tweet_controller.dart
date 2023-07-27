@@ -80,7 +80,11 @@ class TweetController extends StateNotifier<bool> {
         (l) => showSnackBar(context, l.message, "reshare", ContentType.failure),
         (r) async {
       // create the tweet object to the user' who retweeted
-      tweet = tweet.copyWith(id: ID.unique(), reshareCount: 0);
+      tweet = tweet.copyWith(
+        id: ID.unique(),
+        reshareCount: 0,
+        tweetedAt: DateTime.now(),
+      );
       final res2 = await _tweetApi.shareTweet(tweet);
 
       res2.fold(
