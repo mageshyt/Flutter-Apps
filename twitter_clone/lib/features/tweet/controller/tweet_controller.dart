@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:appwrite/appwrite.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -64,6 +65,31 @@ class TweetController extends StateNotifier<bool> {
     res.fold((l) => null, (r) => null);
   }
 
+  void retweetTweet(Tweet tweet, UserModel user, BuildContext context) async {
+    tweet = tweet.copyWith(
+      retweetedBy: user.name,
+      likes: [],
+      commentIds: [],
+      reshareCount: tweet.reshareCount + 1,
+    );
+
+    // update tweet
+    final res = await _tweetApi.updateReshareCount(tweet);
+
+    res.fold(
+        (l) => showSnackBar(context, l.message, "reshare", ContentType.failure),
+        (r) async {
+      // create the tweet object to the user' who retweeted
+      tweet = tweet.copyWith(id: ID.unique(), reshareCount: 0);
+      final res2 = await _tweetApi.shareTweet(tweet);
+
+      res2.fold(
+          (l) => showSnackBar(
+              context, l.message, "tweet error", ContentType.failure),
+          (r) => null);
+    });
+  }
+
   void shareTweet({
     required List<File> images,
     required String tweet_text,
@@ -110,6 +136,8 @@ class TweetController extends StateNotifier<bool> {
       commentIds: [],
       id: '',
       reshareCount: 0,
+      repliedTo: "",
+      retweetedBy: "",
     );
 
     final res = await _tweetApi.shareTweet(tweet);
@@ -142,6 +170,8 @@ class TweetController extends StateNotifier<bool> {
       commentIds: [],
       id: '',
       reshareCount: 0,
+      repliedTo: "",
+      retweetedBy: "",
     );
 
     final res = await _tweetApi.shareTweet(tweet);

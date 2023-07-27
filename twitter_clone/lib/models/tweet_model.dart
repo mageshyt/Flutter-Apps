@@ -12,8 +12,8 @@ class Tweet {
   final List<String> commentIds;
   final String id;
   final int reshareCount;
-  // final String retweetedBy;
-  // final String repliedTo;
+  final String retweetedBy;
+  final String repliedTo;
   const Tweet({
     required this.text,
     required this.hashtags,
@@ -26,8 +26,8 @@ class Tweet {
     required this.commentIds,
     required this.id,
     required this.reshareCount,
-    // required this.retweetedBy,
-    // required this.repliedTo,
+    required this.retweetedBy,
+    required this.repliedTo,
   });
 
   Tweet copyWith({
@@ -57,8 +57,8 @@ class Tweet {
       commentIds: commentIds ?? this.commentIds,
       id: id ?? this.id,
       reshareCount: reshareCount ?? this.reshareCount,
-      // retweetedBy: retweetedBy ?? this.retweetedBy,
-      // repliedTo: repliedTo ?? this.repliedTo,
+      retweetedBy: retweetedBy ?? this.retweetedBy,
+      repliedTo: repliedTo ?? this.repliedTo,
     );
   }
   // To map
@@ -95,8 +95,8 @@ class Tweet {
       commentIds: List<String>.from(map['commentIds']),
       id: map['\$id'] ?? '',
       reshareCount: map['reshareCount']?.toInt() ?? 0,
-      // retweetedBy: map['retweetedBy'] ?? '',
-      // repliedTo: map['repliedTo'] ?? '',
+      retweetedBy: map['retweetedBy'] ?? '',
+      repliedTo: map['repliedTo'] ?? '',
     );
   }
 
