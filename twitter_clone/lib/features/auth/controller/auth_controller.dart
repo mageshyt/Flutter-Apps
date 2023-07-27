@@ -83,6 +83,7 @@ class AuthController extends StateNotifier<bool> {
           (r) => {
             showSnackBar(context, "Account created successfully ", "Success",
                 ContentType.success),
+            Navigator.pop(context),
             Navigator.push(context, LoginView.route())
           },
         );
@@ -104,6 +105,7 @@ class AuthController extends StateNotifier<bool> {
         (r) => {
               showSnackBar(context, "Logined successfully ", "Success",
                   ContentType.success),
+              Navigator.pop(context),
               Navigator.push(context, HomeView.route())
             });
   }
