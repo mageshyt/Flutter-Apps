@@ -8,7 +8,6 @@ import 'package:twitter_clone/features/tweet/widgets/hashtag_text.dart';
 import 'package:twitter_clone/features/tweet/widgets/tweet_action.dart';
 import 'package:twitter_clone/features/tweet/widgets/tweet_header.dart';
 import 'package:twitter_clone/models/tweet_model.dart';
-import 'package:any_link_preview/any_link_preview.dart';
 import 'package:twitter_clone/theme/pallet.dart';
 
 class TweetCard extends ConsumerWidget {

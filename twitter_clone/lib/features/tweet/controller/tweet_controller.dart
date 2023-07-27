@@ -52,7 +52,9 @@ class TweetController extends StateNotifier<bool> {
   }) {
     state = true;
     if (tweet_text.isEmpty) {
-      showSnackBar(context, "Please Enter the text","tweet error", ContentType.failure);
+      showSnackBar(
+          context, "Please Enter the text", "tweet error", ContentType.failure);
+      state = false;
       return;
     }
     // if tweet with images
@@ -94,9 +96,10 @@ class TweetController extends StateNotifier<bool> {
     final res = await _tweetApi.shareTweet(tweet);
 
     res.fold((l) {
-      showSnackBar(context, l.message);
+      showSnackBar(context, l.message, "tweet error", ContentType.failure);
     }, (r) {
-      showSnackBar(context, "Tweet Shared Successfully");
+      showSnackBar(context, "Tweet Shared Successfully", "tweet success",
+          ContentType.success);
     });
   }
 
@@ -125,8 +128,10 @@ class TweetController extends StateNotifier<bool> {
     final res = await _tweetApi.shareTweet(tweet);
 
     res.fold((l) {
-      showSnackBar(context, l.message);
-    }, (r) => showSnackBar(context, "Tweet Shared Successfully"));
+      showSnackBar(context, l.message, "tweet error", ContentType.failure);
+    },
+        (r) => showSnackBar(context, "Tweet Shared Successfully",
+            "tweet success", ContentType.success));
   }
 
   String _getLinkFromText(String text) {

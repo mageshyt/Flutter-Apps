@@ -21,15 +21,17 @@ class _CarouselImageState extends State<CarouselImage> {
               items: widget.images
                   .map(
                     (file) => Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
+                        // rounder corner
                         margin: const EdgeInsets.all(5.0),
-                        child: Image.network(file, fit: BoxFit.contain)),
+                        child: Image.network(
+                          file,
+                          fit: BoxFit.contain,
+                        )),
                   )
                   .toList(),
               options: CarouselOptions(
                 viewportFraction: 1,
+                autoPlay: false,
                 enableInfiniteScroll: false,
                 onPageChanged: (index, reason) {
                   setState(() {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:like_button/like_button.dart';
 import 'package:twitter_clone/constants/assets_constants.dart';
 import 'package:twitter_clone/core/enums/tweet_type_enum.dart';
 import 'package:twitter_clone/features/tweet/widgets/tweet_button.dart';
@@ -13,9 +15,7 @@ class TweetAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Row(
-        mainAxisAlignment: tweet.tweetType == TweetType.image
-            ? MainAxisAlignment.spaceBetween
-            : MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           TweetButton(
               pathname: AssetsConstants.viewsIcon,
@@ -32,10 +32,23 @@ class TweetAction extends StatelessWidget {
               pathname: AssetsConstants.retweetIcon,
               text: tweet.reshareCount.toString(),
               onTap: () {}),
-          TweetButton(
-              pathname: AssetsConstants.likeOutlinedIcon,
-              text: tweet.likes.length.toString(),
-              onTap: () {}),
+          LikeButton(
+            size: 25,
+            likeBuilder: (bool isLiked) {
+              return isLiked
+                  ? SvgPicture.asset(AssetsConstants.likeFilledIcon,
+                      color: Pallete.redColor)
+                  : SvgPicture.asset(
+                      AssetsConstants.likeOutlinedIcon,
+                      color: Pallete.greyColor,
+                    );
+            },
+            likeCount: tweet.likes.length,
+            countBuilder: (likeCount, isLiked, text) => Text(
+              text,
+              style: const TextStyle(color: Pallete.greyColor),
+            ),
+          ),
           IconButton(
               onPressed: () {},
               icon: const Icon(
