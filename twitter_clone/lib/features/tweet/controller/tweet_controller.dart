@@ -66,12 +66,14 @@ class TweetController extends StateNotifier<bool> {
   }
 
   void retweetTweet(Tweet tweet, UserModel user, BuildContext context) async {
+    print(user.name);
     tweet = tweet.copyWith(
-      retweetedBy: user.name,
       likes: [],
       commentIds: [],
       reshareCount: tweet.reshareCount + 1,
+      retweetedBy: user.name,
     );
+    print(tweet.retweetedBy);
 
     // update tweet
     final res = await _tweetApi.updateReshareCount(tweet);
@@ -85,6 +87,8 @@ class TweetController extends StateNotifier<bool> {
         reshareCount: 0,
         tweetedAt: DateTime.now(),
       );
+      print("tweet id: ${tweet.id} & tweet text: ${tweet.retweetedBy}");
+
       final res2 = await _tweetApi.shareTweet(tweet);
 
       res2.fold(

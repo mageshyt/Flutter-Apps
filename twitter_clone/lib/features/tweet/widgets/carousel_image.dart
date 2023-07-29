@@ -11,8 +11,27 @@ class CarouselImage extends StatefulWidget {
 
 class _CarouselImageState extends State<CarouselImage> {
   int _current = 0;
+  double _aspectRatio = 1.0; // Initialize the aspect ratio to 1.0
+
   @override
   Widget build(BuildContext context) {
+    // Calculate the aspect ratio of the first image in the widget.images list
+    if (widget.images.isNotEmpty) {
+      ImageProvider imageProvider = NetworkImage(widget.images.first);
+      imageProvider.resolve(ImageConfiguration()).addListener(
+        ImageStreamListener(
+          (ImageInfo info, bool synchronousCall) {
+            if (mounted) {
+              setState(() {
+                _aspectRatio =
+                    info.image.width.toDouble() / info.image.height.toDouble();
+              });
+            }
+          },
+        ),
+      );
+    }
+
     return Stack(
       children: [
         Column(
@@ -21,16 +40,20 @@ class _CarouselImageState extends State<CarouselImage> {
               items: widget.images
                   .map(
                     (file) => Container(
-                        // rounder corner
-                        margin: const EdgeInsets.all(5.0),
-                        child: Image.network(
-                          file,
-                          fit: BoxFit.contain,
-                        )),
+                      // rounder corner
+                      margin: const EdgeInsets.all(5.0),
+                      child: Image.network(
+                        file,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   )
                   .toList(),
               options: CarouselOptions(
                 viewportFraction: 1,
+                // Set the height of the CarouselSlider based on the aspect ratio
+                height: MediaQuery.of(context).size.width,
+
                 autoPlay: false,
                 enableInfiniteScroll: false,
                 onPageChanged: (index, reason) {

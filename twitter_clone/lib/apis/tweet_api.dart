@@ -39,6 +39,7 @@ class TweetAPI implements ITweetAPI {
   @override
   FutureEither<Document> shareTweet(Tweet tweet) async {
     try {
+      print(tweet.toMap());
       // add tweet to database
       final doc = await _db.createDocument(
           databaseId: AppwriteConstants.databaseId,
@@ -101,8 +102,7 @@ class TweetAPI implements ITweetAPI {
 
   @override
   FutureEither<Document> updateReshareCount(Tweet tweet) async {
-    try{
-
+    try {
       final doc = await _db.updateDocument(
           databaseId: AppwriteConstants.databaseId,
           collectionId: AppwriteConstants.tweetsCollection,
@@ -112,8 +112,7 @@ class TweetAPI implements ITweetAPI {
           });
 
       return right(doc);
-    }
-    catch(e, stackTrace) {
+    } catch (e, stackTrace) {
       return left(Failure(message: e.toString(), stackTrace: stackTrace));
     }
   }

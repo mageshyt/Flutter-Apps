@@ -76,13 +76,13 @@ class Tweet {
     result.addAll({'likes': likes});
     result.addAll({'commentIds': commentIds});
     result.addAll({'reshareCount': reshareCount});
-    // result.addAll({'retweetedBy': retweetedBy});
-    // result.addAll({'repliedTo': repliedTo});
+    result.addAll({'retweetedBy': retweetedBy});
+    result.addAll({'repliedTo': repliedTo});
 
     return result;
   }
 
-   factory Tweet.fromMap(Map<String, dynamic> map) {
+  factory Tweet.fromMap(Map<String, dynamic> map) {
     return Tweet(
       text: map['text'] ?? '',
       hashtags: List<String>.from(map['hashtags']),
@@ -105,5 +105,4 @@ class Tweet {
     // return 'Tweet(text: $text, hashtags: $hashtags, link: $link, imageLinks: $imageLinks, uid: $uid, tweetType: $tweetType, tweetedAt: $tweetedAt, likes: $likes, commentIds: $commentIds, id: $id, reshareCount: $reshareCount, retweetedBy: $retweetedBy, repliedTo: $repliedTo)';
     return 'Tweet(text: $text, hashtags: $hashtags, link: $link, imageLinks: $imageLinks, uid: $uid, tweetType: $tweetType, tweetedAt: $tweetedAt, likes: $likes, commentIds: $commentIds, id: $id, reshareCount: $reshareCount)';
   }
-
 }
