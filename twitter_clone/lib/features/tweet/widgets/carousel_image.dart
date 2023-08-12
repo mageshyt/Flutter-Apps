@@ -52,7 +52,7 @@ class _CarouselImageState extends State<CarouselImage> {
               options: CarouselOptions(
                 viewportFraction: 1,
                 // Set the height of the CarouselSlider based on the aspect ratio
-                height: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 2,
 
                 autoPlay: false,
                 enableInfiniteScroll: false,

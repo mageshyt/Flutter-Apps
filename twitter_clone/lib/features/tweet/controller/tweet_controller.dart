@@ -102,6 +102,7 @@ class TweetController extends StateNotifier<bool> {
     required List<File> images,
     required String tweet_text,
     required BuildContext context,
+    required String repliedTo,
   }) {
     state = true;
     if (tweet_text.isEmpty) {
@@ -115,7 +116,8 @@ class TweetController extends StateNotifier<bool> {
       _shareImageTweet(
           context: context, images: images, tweet_text: tweet_text);
     } else {
-      _shareTweet(context: context, tweet_text: tweet_text);
+      _shareTweet(
+          context: context, tweet_text: tweet_text, repliedTo: repliedTo);
     }
     state = false;
   }
@@ -161,6 +163,7 @@ class TweetController extends StateNotifier<bool> {
   void _shareTweet({
     required String tweet_text,
     required BuildContext context,
+    required String repliedTo,
   }) async {
     final hashtags = _getHashTagsFromText(tweet_text);
     String link = _getLinkFromText(tweet_text);
@@ -178,7 +181,7 @@ class TweetController extends StateNotifier<bool> {
       commentIds: [],
       id: '',
       reshareCount: 0,
-      repliedTo: "",
+      repliedTo: repliedTo,
       retweetedBy: "",
     );
 

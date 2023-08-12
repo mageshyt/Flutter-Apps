@@ -14,6 +14,7 @@ class TwitterList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(getTweetsProvider).when(
         data: (tweets) {
+          
           return ref.watch(getLatestTweetProvider).when(
                 data: (data) {
                   if (data.events.contains(
