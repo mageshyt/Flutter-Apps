@@ -28,6 +28,12 @@ final getTweetsProvider = FutureProvider((ref) async {
   return await tweetController.getTweets();
 });
 
+final getTweetRepliesProvider =
+    FutureProvider.family<List<Tweet>, Tweet>((ref, tweet) async {
+  final tweetController = ref.watch(TweetControllerProvider.notifier);
+  return await tweetController.getTweetReplies(tweet);
+});
+
 class TweetController extends StateNotifier<bool> {
   final TweetAPI _tweetApi;
   final Ref _ref;
@@ -43,6 +49,12 @@ class TweetController extends StateNotifier<bool> {
 
   Future<List<Tweet>> getTweets() async {
     final tweetList = await _tweetApi.getTweets();
+
+    return tweetList.map((tweet) => Tweet.fromMap(tweet.data)).toList();
+  }
+
+  Future<List<Tweet>> getTweetReplies(Tweet tweet) async {
+    final tweetList = await _tweetApi.getTweetReplies(tweet);
 
     return tweetList.map((tweet) => Tweet.fromMap(tweet.data)).toList();
   }
@@ -184,6 +196,10 @@ class TweetController extends StateNotifier<bool> {
       repliedTo: repliedTo,
       retweetedBy: "",
     );
+
+    // if (repliedTo.isNotEmpty) {
+    //   tweet = tweet.copyWith(commentIds: [user.uid]);
+    // }
 
     final res = await _tweetApi.shareTweet(tweet);
 

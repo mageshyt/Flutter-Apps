@@ -24,21 +24,19 @@ class TweetCard extends ConsumerWidget {
             onTap: () {
               Navigator.push(context, TweetReplyView.route(tweet));
             },
-            child: Column(children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   //* Profile Image
                   Container(
-                    margin: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(5),
                     child: CircleAvatar(
                       radius: 30,
                       backgroundImage: NetworkImage(user.avatar),
                     ),
                   ),
 
-                  //* Tweet Content
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,13 +47,15 @@ class TweetCard extends ConsumerWidget {
                         // * Tweet Header
                         TweetHeader(
                             name: user.name, tweetedAt: tweet.tweetedAt),
-                        HashtagText(text: tweet.text),
                         // * Tweet Images
                       ],
                     ),
                   ),
                 ],
               ),
+              Container(
+                  padding: EdgeInsets.all(10),
+                  child: HashtagText(text: tweet.text)),
               if (tweet.tweetType == TweetType.image)
                 CarouselImage(images: tweet.imageLinks),
 

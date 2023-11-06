@@ -40,7 +40,7 @@ class HashtagText extends StatelessWidget {
     return RichText(
       text: TextSpan(
         children: spans,
-        style: const TextStyle(fontSize: 16),
+        style: const TextStyle(fontSize: 18),
       ),
     );
   }

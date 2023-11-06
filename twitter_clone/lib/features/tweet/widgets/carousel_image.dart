@@ -42,9 +42,13 @@ class _CarouselImageState extends State<CarouselImage> {
                     (file) => Container(
                       // rounder corner
                       margin: const EdgeInsets.all(5.0),
-                      child: Image.network(
-                        file,
-                        fit: BoxFit.contain,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: Image.network(
+                          file,
+                          fit: BoxFit.contain,
+                          // rounded image
+                        ),
                       ),
                     ),
                   )
